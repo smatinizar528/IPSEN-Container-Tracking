@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b1728">
+<title>IPSEN | Container Tracking</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--navy:#0b1728;--navy2:#12243b;--ink:#17263b;--muted:#738198;--line:#e5eaf1;--bg:#f4f7fb;--white:#fff;--blue:#2463eb;--cyan:#20b8c8;--green:#14966b;--orange:#d88918;--red:#d64b55;--shadow:0 12px 35px #152b4810}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:"DM Sans",sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}.app{min-height:100vh;display:grid;grid-template-columns:250px 1fr}.sidebar{background:var(--navy);color:#dce7f7;padding:26px 18px;display:flex;flex-direction:column;gap:30px}.brand{display:flex;align-items:center;gap:12px;padding:4px 8px}.logo{width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,#2673ef,#20b8c8);display:grid;place-items:center;font-weight:800;color:white;font-family:Manrope}.brand-logo-img{display:block;width:184px;height:66px;object-fit:contain;object-position:left center;flex:none}.login .brand{display:block;margin-bottom:18px}.login .brand-logo-img{width:250px;height:142px;object-fit:contain;object-position:left center}.brand b{font:800 17px Manrope;letter-spacing:.8px}.brand small{display:block;color:#8ea4c1;font-size:10px;letter-spacing:1.8px;margin-top:3px}.navlabel{color:#7086a5;font-size:10px;font-weight:700;letter-spacing:1.5px;padding:0 12px}.nav{display:grid;gap:7px}.nav button{border:0;background:transparent;color:#aebed3;padding:12px;border-radius:10px;text-align:left;display:flex;gap:12px;align-items:center}.nav button.active,.nav button:hover{background:#1b3554;color:white}.nav .ico{width:20px;text-align:center}.sidefoot{margin-top:auto;border-top:1px solid #263b56;padding:18px 10px;color:#8ea4c1;font-size:11px;line-height:1.6}.main{min-width:0}.topbar{height:76px;background:white;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 34px;position:sticky;top:0;z-index:5}.crumb{font-size:13px;color:var(--muted)}.crumb b{color:var(--ink)}.topright{display:flex;align-items:center;gap:12px}.mode{font-size:11px;background:#fff5e6;color:#9b6817;padding:7px 10px;border-radius:20px;font-weight:700}.avatar{width:35px;height:35px;border-radius:50%;background:#e8efff;color:#2857b9;display:grid;place-items:center;font-weight:700}.content{padding:30px 34px;max-width:1600px;margin:auto}.pagehead{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;margin-bottom:25px}.eyebrow{font-size:11px;color:var(--blue);font-weight:800;letter-spacing:1.5px;text-transform:uppercase}.pagehead h1{font:800 27px Manrope;margin:7px 0 6px}.sub{color:var(--muted);font-size:13px}.actions{display:flex;gap:9px;flex-wrap:wrap}.btn{border:1px solid var(--line);background:white;color:var(--ink);border-radius:9px;padding:10px 14px;font-weight:700;font-size:12px}.btn.primary{background:var(--blue);border-color:var(--blue);color:white}.btn.dark{background:var(--navy);color:white;border-color:var(--navy)}.btn:disabled{opacity:.5;cursor:not-allowed}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-bottom:22px}.stat,.panel{background:white;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow)}.stat{padding:18px 19px}.stathead{display:flex;justify-content:space-between;color:var(--muted);font-size:12px}.staticon{width:32px;height:32px;border-radius:9px;background:#eef4ff;color:var(--blue);display:grid;place-items:center}.stat strong{display:block;font:800 28px Manrope;margin:12px 0 4px}.stat small{color:var(--muted);font-size:11px}.panel{padding:20px;margin-bottom:18px}.panelhead{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px}.panel h2{font:700 15px Manrope;margin:0}.filters{display:flex;gap:9px;flex-wrap:wrap}.field{border:1px solid var(--line);border-radius:8px;padding:10px 11px;background:white;color:var(--ink);font-size:12px;min-width:150px}.field.search{min-width:230px}.tablewrap{overflow:auto}table{border-collapse:collapse;width:100%;min-width:800px}th{text-align:left;color:#8390a3;font-size:10px;text-transform:uppercase;letter-spacing:.8px;padding:12px 10px;border-bottom:1px solid var(--line)}td{padding:14px 10px;border-bottom:1px solid #edf0f5;font-size:12px;white-space:nowrap}tr:last-child td{border-bottom:0}.containerid{font-weight:800;color:#1b4eaa;letter-spacing:.4px}.pill{display:inline-flex;padding:5px 9px;border-radius:20px;font-size:10px;font-weight:800}.p-green{background:#e7f7f0;color:#13865f}.p-orange{background:#fff3df;color:#a96b0b}.p-red{background:#ffebed;color:#bd3f4b}.p-blue{background:#eaf1ff;color:#285dc7}.p-grey{background:#eef1f5;color:#64748b}.progress{height:6px;background:#edf1f6;border-radius:9px;overflow:hidden;width:90px}.progress i{display:block;height:100%;background:var(--blue);border-radius:9px}.empty{text-align:center;color:var(--muted);padding:35px}.two{display:grid;grid-template-columns:1.35fr .85fr;gap:18px}.timeline{display:grid;gap:0}.step{display:grid;grid-template-columns:28px 1fr;gap:12px;min-height:65px}.dot{width:25px;height:25px;border-radius:50%;background:#edf2fa;color:#8190a5;display:grid;place-items:center;font-size:11px;z-index:1}.step.done .dot{background:#e4f7ef;color:var(--green)}.step.current .dot{background:#eaf1ff;color:var(--blue);box-shadow:0 0 0 4px #edf3ff}.step:not(:last-child) .dot:after{content:"";position:absolute}.stepbody{border-bottom:1px solid #edf0f5;padding:3px 0 13px}.stepbody b{font-size:12px}.stepbody small{display:block;color:var(--muted);margin-top:4px;font-size:10px}.modalback{position:fixed;inset:0;background:#08142699;display:none;align-items:center;justify-content:center;padding:20px;z-index:20}.modalback.show{display:flex}.modal{background:white;border-radius:16px;width:min(760px,100%);max-height:92vh;overflow:auto;padding:24px;box-shadow:0 25px 80px #0003}.modalhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.modalhead h2{font:800 19px Manrope;margin:0}.x{border:0;background:#f1f4f8;border-radius:8px;padding:7px 11px}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.formrow{display:grid;gap:6px}.formrow label{font-size:11px;color:#637188;font-weight:700}.formrow input,.formrow select,.formrow textarea{width:100%;border:1px solid var(--line);border-radius:8px;padding:11px;font-size:12px}.formrow.full{grid-column:1/-1}.modalfoot{display:flex;justify-content:flex-end;gap:9px;margin-top:20px}.notice{padding:12px 14px;border-radius:9px;background:#eef5ff;color:#2855a5;font-size:11px;line-height:1.6;margin:12px 0}.toast{position:fixed;bottom:20px;right:20px;background:#10243b;color:white;padding:12px 16px;border-radius:9px;font-size:12px;z-index:40;display:none;box-shadow:var(--shadow)}.toast.show{display:block}.login{max-width:420px;margin:10vh auto;background:white;padding:30px;border-radius:16px;border:1px solid var(--line);box-shadow:var(--shadow)}.login h1{font:800 23px Manrope}.login p{color:var(--muted);font-size:12px;line-height:1.6}.login .formrow{margin:14px 0}.hidden{display:none!important}.detailgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.detailbox{background:#f7f9fc;border-radius:9px;padding:12px}.detailbox small{display:block;color:var(--muted);font-size:10px}.detailbox b{display:block;margin-top:5px;font-size:12px}
+@media(max-width:1000px){.app{grid-template-columns:205px 1fr}.stats{grid-template-columns:repeat(2,1fr)}.content{padding:24px}.topbar{padding:0 24px}.two{grid-template-columns:1fr}}
+@media(max-width:700px){.app{display:block}.sidebar{padding:12px 14px;gap:10px}.brand{padding:3px}.navlabel,.sidefoot{display:none}.nav{display:flex;overflow:auto}.nav button{white-space:nowrap;padding:9px 11px;font-size:11px}.topbar{height:58px;padding:0 16px}.content{padding:20px 14px}.pagehead{display:block}.actions{margin-top:15px}.stats{gap:9px}.stat{padding:13px}.stat strong{font-size:23px}.stathead{font-size:10px}.staticon{width:27px;height:27px}.formgrid{grid-template-columns:1fr}.formrow.full{grid-column:auto}.detailgrid{grid-template-columns:1fr 1fr}.panel{padding:14px}.filters{width:100%}.field.search{min-width:100%}}
+
+/* Dashboard visual aligned to the approved IPSEN reference */
+.stats{gap:18px;margin-bottom:22px}.stat{padding:20px 22px;min-height:132px;border-radius:15px}.stat strong{font-size:31px;margin:10px 0 3px}.stat-success{background:linear-gradient(135deg,#fff,#f5fcf8);border-color:#cfeadd}.stat-success strong{color:#16864f}.stat-danger{background:linear-gradient(135deg,#fff,#fff7f7);border-color:#f2d9dc}.stat-danger strong{color:#c52e32}.dashboard-grid{display:grid;grid-template-columns:minmax(360px,.85fr) minmax(520px,1.25fr);gap:18px;margin-bottom:24px}.distribution-panel,.flow-panel{min-height:248px;padding:20px 22px}.distribution-content{display:flex;align-items:center;justify-content:center;gap:34px;min-height:165px}.donut{width:164px;height:164px;border-radius:50%;background:conic-gradient(#14966b 0 50%,#2463eb 50% 75%,#f4b51b 75% 87.5%,#df4545 87.5% 100%);display:grid;place-items:center;flex:none;position:relative}.donut-center{width:104px;height:104px;border-radius:50%;background:white;display:flex;flex-direction:column;align-items:center;justify-content:center}.donut-center strong{font:800 25px Manrope}.donut-center span{font-size:11px;color:var(--muted)}.legend{display:grid;gap:13px;min-width:170px}.legend-row{display:grid;grid-template-columns:12px 1fr auto;align-items:center;gap:9px;font-size:12px}.legend-dot{width:11px;height:11px;border-radius:3px}.legend-row b{font-size:12px}.legend-row small{color:var(--muted);font-size:11px}.stage-flow{display:grid;grid-template-columns:repeat(8,minmax(65px,1fr));align-items:start;gap:3px;padding:22px 2px 0}.flow-stage{position:relative;text-align:center;min-width:0}.flow-stage:not(:last-child):before{content:"";position:absolute;height:4px;background:#dbe2ec;left:50%;right:-50%;top:16px;z-index:0}.flow-stage.done:not(:last-child):before{background:#14966b}.flow-stage.current:not(:last-child):before{background:linear-gradient(90deg,#2463eb 0 50%,#dbe2ec 50%)}.flow-circle{position:relative;z-index:1;width:34px;height:34px;border-radius:50%;margin:0 auto 12px;background:#e8edf4;color:#75849a;display:grid;place-items:center;font-weight:800;border:3px solid white;box-shadow:0 0 0 1px #dbe2ec}.flow-stage.done .flow-circle{background:#14966b;color:white;box-shadow:0 0 0 1px #14966b}.flow-stage.current .flow-circle{background:#2463eb;color:white;box-shadow:0 0 0 5px #e8efff}.flow-stage span{display:block;font-size:10px;line-height:1.35;color:#29374b;font-weight:600;max-width:90px;margin:auto}.flow-count{display:block;color:#7b8ba1;font-size:9px;margin-top:4px;min-height:10px}.dashboard-table-section{margin-top:6px}.table-title-row{display:flex;justify-content:space-between;align-items:center;gap:14px;margin:0 4px 14px}.table-title-row h2{font:800 19px Manrope;margin:0}.table-actions{display:flex;gap:10px;align-items:center}.dashboard-search{display:flex;align-items:center;gap:8px;border:1px solid #d8e0eb;border-radius:9px;background:#fff;padding:0 12px;height:42px;min-width:360px;color:#6f819b;font-size:22px}.dashboard-search input{border:0;outline:0;width:100%;font-size:12px;color:var(--ink)}.table-panel{padding:0 12px;margin-bottom:0}.table-panel table{min-width:1000px}.table-panel th{background:#f6f8fb;color:#5e6c80;padding:13px 10px}.table-panel td{padding:13px 10px}.table-panel .containerid{color:#17263b}.status-cell{display:inline-flex;align-items:center;gap:6px}.table-action{border:1px solid #d7e0ed;background:#fff;border-radius:8px;padding:6px 10px;color:#253c5a}.side-promo{margin-top:auto;border-radius:16px;padding:14px;background:linear-gradient(145deg,#1e5c94,#102b4c);color:white;min-height:245px;display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden}.side-promo:before{content:"🚢";position:absolute;top:18px;left:18px;font-size:66px;opacity:.92}.side-promo b{font:700 15px Manrope;line-height:1.35;position:relative}.side-promo small{margin-top:12px;background:#fff;color:#14283f;border-radius:10px;padding:12px;text-align:center;font-weight:800}.side-promo small strong{display:block;color:#c62d32;font-size:20px}.sidefoot{margin-top:0}
+@media(max-width:1150px){.dashboard-grid{grid-template-columns:1fr}.flow-panel{overflow-x:auto}.stage-flow{min-width:650px}.dashboard-search{min-width:260px}}
+@media(max-width:700px){.dashboard-grid{display:block}.distribution-panel{margin-bottom:14px}.distribution-content{gap:16px}.donut{width:130px;height:130px}.donut-center{width:84px;height:84px}.legend{min-width:140px}.table-title-row{display:block}.table-actions{margin-top:12px;flex-wrap:wrap}.dashboard-search{min-width:100%;width:100%}.table-panel{padding:0 8px}}
+
+</style>
+</head>
+<body>
+<div id="loginView" class="login hidden">
+  <div class="brand" style="padding:0;color:#10243b"><img class="brand-logo-img" src="ipsen-logo.png" alt="IPSEN Logistics"><div><b>CONTAINER TRACKING</b><small style="color:#75839a">Suivi des conteneurs</small></div></div>
+  <h1>Connexion équipe logistique</h1><p>Connectez-vous avec votre compte IPSEN autorisé pour accéder au suivi des conteneurs.</p>
+  <div class="formrow"><label>Email professionnel</label><input id="loginEmail" type="email" autocomplete="username" placeholder="nom@ipsen..."></div>
+  <div class="formrow"><label>Mot de passe</label><input id="loginPassword" type="password" autocomplete="current-password"></div>
+  <button class="btn primary" style="width:100%;padding:12px" id="loginBtn">Se connecter</button>
+  <p id="loginMsg"></p>
+</div>
+<div id="appView" class="app hidden">
+<aside class="sidebar">
+ <div class="brand"><img class="brand-logo-img" src="ipsen-logo.png" alt="IPSEN Logistics"><div><b>CONTAINER TRACKING</b><small>Suivi des conteneurs</small></div></div>
+ <div class="navlabel">ESPACE LOGISTIQUE</div>
+ <nav class="nav">
+  <button class="active" data-page="dashboard"><span class="ico">▦</span> Vue générale</button>
+  <button data-page="containers"><span class="ico">▤</span> Conteneurs</button>
+  <button data-page="alerts"><span class="ico">⚑</span> Alertes & retards</button>
+ </nav>
+ <div class="side-promo"><b>Suivi de vos conteneurs<br>Du port jusqu'à IPSEN</b><small>🎯 Objectif<strong>≤ 3 jours</strong></small></div>
+ <div class="sidefoot">IPSEN LOGISTICS<br>Suivi port → dépôt<br><span id="connectionLabel">Mode démonstration</span></div>
+</aside>
+<main class="main">
+ <header class="topbar"><div class="crumb">IPSEN / <b id="crumb">Vue générale</b></div><div class="topright"><span class="mode" id="modeBadge">DÉMO</span><div class="avatar" id="userAvatar">I</div><button class="btn" id="logoutBtn">Déconnexion</button></div></header>
+ <section class="content">
+  <div class="pagehead"><div><div class="eyebrow">CONTROL TOWER · LOGISTICS</div><h1 id="pageTitle">Suivi des conteneurs</h1><div class="sub">De l'arrivée au port jusqu'à la réception chez IPSEN · Objectif opérationnel : ≤ 3 jours après préavis</div></div><div class="actions"><button class="btn" id="refreshBtn">↻ Actualiser</button><button class="btn primary" id="newBtn">＋ Nouveau conteneur</button></div></div>
+  <div id="dashboardPage">
+   <div class="stats">
+    <div class="stat"><div class="stathead">Conteneurs actifs <span class="staticon">▤</span></div><strong id="kpiActive">—</strong><small>En cours de suivi</small></div>
+    <div class="stat stat-success"><div class="stathead">Arrivés chez IPSEN <span class="staticon">✓</span></div><strong id="kpiArrived">—</strong><small>Réceptions confirmées</small></div>
+    <div class="stat stat-danger"><div class="stathead">En retard (+3 jours) <span class="staticon">⚠</span></div><strong id="kpiLate">—</strong><small>À traiter en priorité</small></div>
+    <div class="stat"><div class="stathead">Délai moyen <span class="staticon">◷</span></div><strong id="kpiAvg">—</strong><small>Préavis → arrivée IPSEN</small></div>
+   </div>
+   <div class="dashboard-grid">
+    <section class="panel distribution-panel">
+     <div class="panelhead"><h2>Répartition par statut</h2></div>
+     <div class="distribution-content"><div class="donut" id="statusDonut"><div class="donut-center"><strong id="donutTotal">0</strong><span>Conteneurs</span></div></div><div class="legend" id="statusLegend"></div></div>
+    </section>
+    <section class="panel flow-panel">
+     <div class="panelhead"><h2>Flux d’un conteneur (5 étapes)</h2></div>
+     <div class="stage-flow" id="stageFlow"></div>
+    </section>
+   </div>
+   <section class="dashboard-table-section">
+    <div class="table-title-row"><h2>Conteneurs en cours</h2><div class="table-actions"><label class="dashboard-search">⌕ <input id="dashboardSearch" placeholder="Rechercher (N° conteneur, client, ESC, RUB...)" /></label><button class="btn primary" data-goto="containers">Voir tout →</button></div></div>
+    <div class="panel table-panel"><div class="tablewrap"><table><thead><tr><th>N° Conteneur</th><th>Client</th><th>ESC</th><th>RUB</th><th>Navire / Voyage</th><th>Statut</th><th>Date préavis</th><th>Délai</th><th>Actions</th></tr></thead><tbody id="recentRows"></tbody></table></div></div>
+   </section>
+  </div>
+  <div id="containersPage" class="hidden">
+   <div class="panel"><div class="panelhead"><h2>Registre des conteneurs</h2><div class="filters"><input id="searchInput" class="field search" placeholder="Rechercher n° conteneur, client, navire..."><select id="filterStage" class="field"><option value="">Toutes les étapes</option></select></div></div><div class="tablewrap"><table><thead><tr><th>N° conteneur</th><th>Client</th><th>Navire / Voyage</th><th>Port</th><th>Étape</th><th>Préavis</th><th>Durée</th><th>Statut</th><th></th></tr></thead><tbody id="allRows"></tbody></table></div><div id="rowCount" class="sub" style="padding-top:12px"></div></div>
+  </div>
+  <div id="alertsPage" class="hidden">
+   <div class="panel"><div class="panelhead"><h2>Conteneurs nécessitant une action</h2></div><div class="tablewrap"><table><thead><tr><th>Conteneur</th><th>Client</th><th>Étape bloquante</th><th>Depuis</th><th>Responsable</th><th>Action / remarque</th></tr></thead><tbody id="alertRows"></tbody></table></div></div>
+  </div>
+ </section>
+</main>
+</div>
+<div class="modalback" id="containerModal"><div class="modal">
+ <div class="modalhead"><h2 id="modalTitle">Nouveau conteneur</h2><button class="x" data-close>✕</button></div>
+ <form id="containerForm"><input type="hidden" id="recordId">
+ <div class="formgrid">
+  <div class="formrow"><label>Numéro du conteneur *</label><input id="fNumber" required maxlength="11" placeholder="ABCD1234567"></div>
+  <div class="formrow"><label>Client *</label><input id="fClient" required placeholder="Nom du client"></div>
+  <div class="formrow"><label>Port d'origine</label><input id="fPort" placeholder="Ex. Radès / Marseille"></div>
+  <div class="formrow"><label>Compagnie maritime</label><input id="fCarrier" placeholder="Ex. MSC, CMA CGM, Maersk"></div>
+  <div class="formrow"><label>Navire</label><input id="fVessel" placeholder="Nom du navire"></div>
+  <div class="formrow"><label>N° voyage</label><input id="fVoyage" placeholder="Voyage / référence"></div>
+  <div class="formrow"><label>Date & heure du préavis *</label><input id="fNotice" type="datetime-local" required></div>
+  <div class="formrow"><label>ETA port</label><input id="fEta" type="datetime-local"></div>
+  <div class="formrow"><label>Responsable IPSEN</label><input id="fOwner" placeholder="Nom du responsable"></div>
+  <div class="formrow"><label>Référence ESC</label><input id="fEsc" placeholder="ESC-2026-001"></div>
+  <div class="formrow"><label>Référence RUB</label><input id="fRub" placeholder="RUB-2026-001"></div>
+  <div class="formrow full"><label>Notes</label><textarea id="fNotes" rows="2" placeholder="Documents, douane, blocage, instructions..."></textarea></div>
+ </div><div class="notice">Après création, utilisez « Mettre à jour l'étape » pour enregistrer chaque événement avec date et heure. Les dates automatiques du transporteur nécessitent une API autorisée.</div>
+ <div class="modalfoot"><button type="button" class="btn" data-close>Annuler</button><button class="btn primary" type="submit">Enregistrer</button></div></form>
+</div></div>
+<div class="modalback" id="detailModal"><div class="modal">
+ <div class="modalhead"><div><div class="eyebrow">FICHE CONTENEUR</div><h2 id="detailTitle">—</h2></div><button class="x" data-close>✕</button></div>
+ <div id="detailBody"></div>
+ <div class="modalfoot" style="justify-content:space-between"><button class="btn" id="editBtn">Modifier fiche</button><div><button class="btn" id="syncBtn">↻ Sync transporteur</button> <button class="btn primary" id="updateStageBtn">Mettre à jour l'étape</button></div></div>
+</div></div>
+<div class="modalback" id="stageModal"><div class="modal">
+ <div class="modalhead"><h2>Enregistrer un événement</h2><button class="x" data-close>✕</button></div>
+ <form id="stageForm"><div class="formgrid">
+  <div class="formrow full"><label>Nouvelle étape *</label><select id="sStage" class="field" required style="width:100%"></select></div>
+  <div class="formrow"><label>Date & heure de l'événement *</label><input id="sAt" type="datetime-local" required></div>
+  <div class="formrow full"><label>Commentaire (facultatif)</label><textarea id="sNotes" rows="2" placeholder="Ex. : attente du camion, dossier douanier en cours..."></textarea></div>
+ </div><div class="notice">La date et l’heure sont enregistrées automatiquement. L’historique détaillé reste conservé.</div>
+ <div class="modalfoot"><button type="button" class="btn" data-close>Annuler</button><button class="btn primary">Enregistrer l'événement</button></div></form>
+</div></div>
+<div class="toast" id="toast"></div>
+<script src="config.js"></script>
+<script>
+const STAGES=[
+ ['preavis','Préavis reçu'],['au_port','Au port (déchargement & douane)'],['port_exit','Sortie du port'],['in_transit','En route vers IPSEN'],['ipsen_arrival','Arrivée chez IPSEN']
+];
+const LEGACY_STAGE_MAP={port_arrival:'au_port',vessel_unload:'au_port',customs:'au_port',release:'au_port'};
+const normalizeStage=k=>LEGACY_STAGE_MAP[k]||k;
+const isArrived=r=>normalizeStage(r.current_stage)==='ipsen_arrival';
+const $=id=>document.getElementById(id);
+const nowLocal=()=>{const d=new Date();d.setMinutes(d.getMinutes()-d.getTimezoneOffset());return d.toISOString().slice(0,16)};
+const fmt=v=>v?new Date(v).toLocaleString('fr-FR',{dateStyle:'short',timeStyle:'short'}):'—';
+const hours=(a,b)=>Math.max(0,(new Date(b||Date.now())-new Date(a))/36e5);
+const days=(a,b)=>hours(a,b)/24;
+const stageName=k=>STAGES.find(s=>s[0]===normalizeStage(k))?.[1]||k||'Préavis reçu';
+let sb=null,user=null,records=[],events=[],activeId=null,selected=null;
+let demo=[
+ {id:'demo-1',container_number:'MSCU1234567',client:'Comptoir du Bâtiment du Kef',origin_port:'Radès',shipping_line:'MSC',vessel:'MSC Example',voyage:'TN2601',notice_at:new Date(Date.now()-36*3600000).toISOString(),eta_port:new Date(Date.now()-8*3600000).toISOString(),current_stage:'customs',owner:'Équipe IPSEN',reference:'ESC-2026-014',notes:'Dossier douanier en cours',created_at:new Date().toISOString()},
+ {id:'demo-2',container_number:'CMAU7654321',client:'Client Démo B',origin_port:'Marseille',shipping_line:'CMA CGM',vessel:'CMA Example',voyage:'FR118',notice_at:new Date(Date.now()-4*86400000).toISOString(),eta_port:new Date(Date.now()-3*86400000).toISOString(),current_stage:'port_exit',owner:'Équipe IPSEN',reference:'ESC-2026-015',notes:'Attente confirmation transport',created_at:new Date().toISOString()},
+ {id:'demo-3',container_number:'TGHU2345678',client:'Client Démo C',origin_port:'Radès',shipping_line:'Maersk',vessel:'Maersk Example',voyage:'MA551',notice_at:new Date(Date.now()-18*3600000).toISOString(),eta_port:null,current_stage:'in_transit',owner:'Équipe IPSEN',reference:'ESC-2026-016',notes:'ETA dépôt confirmée par téléphone',created_at:new Date().toISOString()}
+];
+let demoEvents={'demo-1':[{stage:'preavis',event_at:new Date(Date.now()-36*3600000).toISOString(),source:'manual',notes:'Préavis enregistré'},{stage:'port_arrival',event_at:new Date(Date.now()-8*3600000).toISOString(),source:'manual',notes:'Arrivée port'}],'demo-2':[],'demo-3':[]};
+function isDemo(){return !window.IPSEN_CONFIG?.supabaseUrl||!window.IPSEN_CONFIG?.supabaseAnonKey||!window.supabase}
+function toast(t){$('toast').textContent=t;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),3200)}
+function badge(r){const d=days(r.notice_at,r.arrived_at||new Date());if(r.arrived_at)return '<span class="pill p-green">Réceptionné</span>';if(d>3)return '<span class="pill p-red">Retard · '+d.toFixed(1)+' j</span>';if(d>=2)return '<span class="pill p-orange">À surveiller · '+d.toFixed(1)+' j</span>';return '<span class="pill p-blue">Dans le délai</span>'}
+function elapsed(r){return days(r.notice_at,r.arrived_at||new Date()).toFixed(1)+' j'}
+function currentStage(r){return stageName(r.current_stage)}
+function stageIndex(k){return STAGES.findIndex(s=>s[0]===normalizeStage(k))}
+async function init(){
+ if(isDemo()){records=demo;events=Object.entries(demoEvents).flatMap(([id,arr])=>arr.map(e=>({...e,container_id:id})));showApp(true);render();return}
+ sb=window.supabase.createClient(IPSEN_CONFIG.supabaseUrl,IPSEN_CONFIG.supabaseAnonKey);
+ const {data:{session}}=await sb.auth.getSession();
+ if(!session){showLogin();return} user=session.user;showApp(false);await loadData();
+ sb.auth.onAuthStateChange((_e,s)=>{if(!s)showLogin();else{user=s.user;loadData()}});
+}
+function showLogin(){$('appView').classList.add('hidden');$('loginView').classList.remove('hidden')}
+function showApp(demoMode){$('loginView').classList.add('hidden');$('appView').classList.remove('hidden');$('modeBadge').textContent=demoMode?'DÉMO':'CONNECTÉ';$('modeBadge').style.background=demoMode?'#fff3df':'#e7f7f0';$('modeBadge').style.color=demoMode?'#9b6817':'#13865f';$('connectionLabel').textContent=demoMode?'Données de démonstration':'Connexion Supabase sécurisée';$('userAvatar').textContent=(user?.email||'IPSEN').slice(0,1).toUpperCase();$('logoutBtn').classList.toggle('hidden',demoMode)}
+async function loadData(){
+ const {data,error}=await sb.from('tracking_containers').select('*').order('created_at',{ascending:false});
+ if(error){toast('Erreur chargement : '+error.message);return}
+ records=data||[];
+ const ids=records.map(x=>x.id);
+ if(ids.length){const {data:ev,error:ee}=await sb.from('tracking_events').select('*').in('container_id',ids).order('event_at');if(ee){toast(ee.message);return}events=ev||[]}else events=[];
+ render();
+}
+function render(){
+ const active=records.filter(r=>!isArrived(r)),arrived=records.filter(isArrived),late=active.filter(r=>days(r.notice_at,new Date())>3);
+ const completed=arrived.filter(r=>r.arrived_at);const avg=completed.length?completed.reduce((a,r)=>a+days(r.notice_at,r.arrived_at),0)/completed.length:0;
+ $('kpiActive').textContent=active.length;$('kpiArrived').textContent=arrived.length;$('kpiLate').textContent=late.length;$('kpiAvg').textContent=completed.length?avg.toFixed(1)+' j':'—';
+ renderDashboardTable();
+ renderStatusDistribution();
+ renderStageFlow();
+ const opts=STAGES.map(([k,n])=>`<option value="${k}">${n}</option>`).join('');$('filterStage').innerHTML='<option value="">Toutes les étapes</option>'+opts;$('sStage').innerHTML=opts;
+ renderTable();renderAlerts();
+}
+function renderDashboardTable(){
+ const q=($('dashboardSearch')?.value||'').toLowerCase().trim();
+ const list=records.filter(r=>[r.container_number,r.client,r.esc_reference,r.rub_reference,r.reference,r.vessel,r.voyage].some(v=>(v||'').toLowerCase().includes(q))).slice(0,8);
+ $('recentRows').innerHTML=list.map(r=>`<tr><td><span class="containerid">${esc(r.container_number)}</span></td><td>${esc(r.client)}</td><td>${esc(r.esc_reference||'—')}</td><td>${esc(r.rub_reference||'—')}</td><td>${esc((r.vessel||'—')+' / '+(r.voyage||'—'))}</td><td>${badge(r)}</td><td>${fmt(r.notice_at)}</td><td>${elapsed(r)}</td><td><button class="table-action" onclick="openDetail('${r.id}')" aria-label="Voir le détail">◉</button></td></tr>`).join('')||'<tr><td colspan="9" class="empty">Aucun conteneur enregistré</td></tr>';
+}
+function renderStatusDistribution(){
+ const total=records.length;$('donutTotal').textContent=total;
+ const isLate=r=>!isArrived(r)&&days(r.notice_at,new Date())>3;
+ const groups=[['Arrivés IPSEN',records.filter(isArrived).length,'#14966b'],['En transport',records.filter(r=>['in_transit','port_exit'].includes(normalizeStage(r.current_stage))&&!isLate(r)).length,'#2463eb'],['Au port',records.filter(r=>normalizeStage(r.current_stage)==='au_port'&&!isLate(r)).length,'#f4b51b'],['En retard',records.filter(isLate).length,'#df4545']];
+ const sum=groups.reduce((a,g)=>a+g[1],0);let cursor=0;const slices=groups.map(g=>{const pct=total?g[1]/total*100:0;const from=cursor;cursor+=pct;return `${g[2]} ${from}% ${cursor}%`});
+ $('statusDonut').style.background=total?`conic-gradient(${slices.join(',')})`:'conic-gradient(#e8edf4 0 100%)';
+ $('statusLegend').innerHTML=groups.map(g=>`<div class="legend-row"><i class="legend-dot" style="background:${g[2]}"></i><span>${g[0]}</span><b>${g[1]} <small>(${total?Math.round(g[1]/total*100):0}%)</small></b></div>`).join('');
+}
+function renderStageFlow(){
+ const maxStage=records.length?Math.max(...records.map(r=>stageIndex(r.current_stage))):-1;
+ $('stageFlow').innerHTML=STAGES.map(([k,n],i)=>{const count=records.filter(r=>normalizeStage(r.current_stage)===k).length;const done=maxStage>=i&&maxStage>=0;const cur=maxStage===i;const symbol=i===3?'↗':i===4?'⌂':i+1;return `<div class="flow-stage ${done?'done':''} ${cur?'current':''}"><div class="flow-circle">${done?'✓':symbol}</div><span>${n}</span><small class="flow-count">${count||''}</small></div>`}).join('');
+}
+function renderTable(){
+ const q=($('searchInput')?.value||'').toLowerCase(),f=$('filterStage')?.value||'';
+ const list=records.filter(r=>(!f||normalizeStage(r.current_stage)===f)&&[r.container_number,r.client,r.esc_reference,r.rub_reference,r.reference,r.vessel,r.origin_port,r.shipping_line].some(v=>(v||'').toLowerCase().includes(q)));
+ $('allRows').innerHTML=list.map(r=>`<tr><td><span class="containerid">${esc(r.container_number)}</span></td><td>${esc(r.client)}</td><td>${esc(r.vessel||'—')}</td><td>${esc(r.origin_port||'—')}</td><td>${esc(currentStage(r))}</td><td>${fmt(r.notice_at)}</td><td>${elapsed(r)}</td><td>${badge(r)}</td><td><button class="btn" onclick="openDetail('${r.id}')">Détails →</button></td></tr>`).join('')||'<tr><td colspan="9" class="empty">Aucun résultat</td></tr>';
+ $('rowCount').textContent=list.length+' conteneur(s)';
+}
+function renderAlerts(){
+ const list=records.filter(r=>!isArrived(r)&&days(r.notice_at,new Date())>=2);
+ $('alertRows').innerHTML=list.map(r=>`<tr><td class="containerid">${esc(r.container_number)}</td><td>${esc(r.client)}</td><td>${esc(currentStage(r))}</td><td>${elapsed(r)}</td><td>${esc(r.owner||'—')}</td><td>${esc(r.notes||'À relancer')}</td></tr>`).join('')||'<tr><td colspan="6" class="empty">Aucune alerte active</td></tr>';
+}
+function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function page(p){['dashboard','containers','alerts'].forEach(x=>$(x+'Page').classList.toggle('hidden',x!==p));document.querySelectorAll('[data-page]').forEach(b=>b.classList.toggle('active',b.dataset.page===p));$('crumb').textContent=p==='dashboard'?'Vue générale':p==='containers'?'Conteneurs':'Alertes & retards';$('pageTitle').textContent=p==='dashboard'?'Suivi des conteneurs':p==='containers'?'Registre des conteneurs':'Alertes & retards'}
+function openModal(id){$(id).classList.add('show')}function closeModals(){document.querySelectorAll('.modalback').forEach(m=>m.classList.remove('show'))}
+function clearForm(){ $('containerForm').reset();$('recordId').value='';$('fNotice').value=nowLocal();$('modalTitle').textContent='Nouveau conteneur'}
+function editRecord(r){clearForm();$('modalTitle').textContent='Modifier le conteneur';$('recordId').value=r.id;$('fNumber').value=r.container_number;$('fClient').value=r.client;$('fPort').value=r.origin_port||'';$('fCarrier').value=r.shipping_line||'';$('fVessel').value=r.vessel||'';$('fVoyage').value=r.voyage||'';$('fNotice').value=r.notice_at?.slice(0,16)||'';$('fEta').value=r.eta_port?.slice(0,16)||'';$('fOwner').value=r.owner||'';$('fEsc').value=r.esc_reference||'';$('fRub').value=r.rub_reference||'';$('fNotes').value=r.notes||'';closeModals();openModal('containerModal')}
+async function saveContainer(e){
+ e.preventDefault();const id=$('recordId').value;const payload={container_number:$('fNumber').value.toUpperCase().replace(/\s/g,''),client:$('fClient').value.trim(),origin_port:$('fPort').value.trim(),shipping_line:$('fCarrier').value.trim(),vessel:$('fVessel').value.trim(),voyage:$('fVoyage').value.trim(),notice_at:new Date($('fNotice').value).toISOString(),eta_port:$('fEta').value?new Date($('fEta').value).toISOString():null,owner:$('fOwner').value.trim(),esc_reference:$('fEsc').value.trim(),rub_reference:$('fRub').value.trim(),reference:[$('fEsc').value.trim(),$('fRub').value.trim()].filter(Boolean).join(' / '),notes:$('fNotes').value.trim()};
+ if(!/^[A-Z]{4}[A-Z0-9]{7}$/.test(payload.container_number)){toast('Format attendu : 4 lettres + 7 caractères.');return}
+ if(isDemo()){if(id){records=records.map(r=>r.id===id?{...r,...payload}:r)}else{const r={id:'demo-'+Date.now(),...payload,current_stage:'preavis',arrived_at:null,created_at:new Date().toISOString()};records.unshift(r);events.push({container_id:r.id,stage:'preavis',event_at:payload.notice_at,source:'manual',notes:'Préavis enregistré'})} }
+ else{const result=id?await sb.from('tracking_containers').update(payload).eq('id',id):await sb.from('tracking_containers').insert({...payload,created_by:user.id});if(result.error){toast(result.error.message);return}await loadData()}
+ closeModals();render();toast('Fiche conteneur enregistrée.');
+}
+function openDetail(id){
+ selected=records.find(r=>r.id===id);if(!selected)return;activeId=id;$('detailTitle').textContent=selected.container_number;
+ const ev=events.filter(e=>e.container_id===id).sort((a,b)=>new Date(a.event_at)-new Date(b.event_at));
+ const timeline=STAGES.map(([k,n],i)=>{const found=ev.filter(e=>normalizeStage(e.stage)===k).slice(-1)[0];const done=!!found||i<=stageIndex(selected.current_stage);return `<div class="step ${done?'done':''} ${k===normalizeStage(selected.current_stage)?'current':''}"><div class="dot">${done?'✓':i+1}</div><div class="stepbody"><b>${n}</b><small>${found?fmt(found.event_at)+' · Saisie manuelle':'En attente'}</small>${found?.notes?`<small>${esc(found.notes)}</small>`:''}</div></div>`}).join('');
+ $('detailBody').innerHTML=`<div class="detailgrid"><div class="detailbox"><small>Client</small><b>${esc(selected.client)}</b></div><div class="detailbox"><small>Port d'origine</small><b>${esc(selected.origin_port||'—')}</b></div><div class="detailbox"><small>Navire / voyage</small><b>${esc((selected.vessel||'—')+' / '+(selected.voyage||'—'))}</b></div><div class="detailbox"><small>Préavis</small><b>${fmt(selected.notice_at)}</b></div><div class="detailbox"><small>ETA port</small><b>${fmt(selected.eta_port)}</b></div><div class="detailbox"><small>Délai actuel</small><b>${elapsed(selected)} ${badge(selected)}</b></div></div><div class="two" style="margin-top:22px"><div><h3 style="font:700 13px Manrope">Progression</h3><div class="timeline">${timeline}</div></div><div><h3 style="font:700 13px Manrope">Informations opérationnelles</h3><div class="detailbox" style="margin-bottom:9px"><small>Compagnie maritime</small><b>${esc(selected.shipping_line||'—')}</b></div><div class="detailbox" style="margin-bottom:9px"><small>Responsable IPSEN</small><b>${esc(selected.owner||'—')}</b></div><div class="detailbox" style="margin-bottom:9px"><small>Référence ESC / RUB</small><b>${esc([selected.esc_reference,selected.rub_reference].filter(Boolean).join(' / ')||selected.reference||'—')}</b></div><div class="detailbox"><small>Notes</small><b>${esc(selected.notes||'—')}</b></div></div></div>`;
+ openModal('detailModal');
+}
+async function saveStage(e){
+ e.preventDefault();const stage=$('sStage').value,at=new Date($('sAt').value).toISOString();
+ const ev={container_id:activeId,stage,event_at:at,source:'manual',location:null,source_reference:null,notes:$('sNotes').value.trim(),created_by:user?.id||null};
+ if(isDemo()){events.push({...ev,id:'event-'+Date.now()});records=records.map(r=>r.id===activeId?{...r,current_stage:stage,arrived_at:stage==='ipsen_arrival'?at:null}:r)}
+ else{const {error}=await sb.from('tracking_events').insert(ev);if(error){toast(error.message);return}const patch={current_stage:stage};if(stage==='ipsen_arrival')patch.arrived_at=at;const {error:up}=await sb.from('tracking_containers').update(patch).eq('id',activeId);if(up){toast(up.message);return}await loadData()}
+ closeModals();openDetail(activeId);render();toast('Événement ajouté à l’historique.');
+}
+$('newBtn').onclick=()=>{clearForm();openModal('containerModal')};$('refreshBtn').onclick=()=>isDemo()?render():loadData();$('containerForm').onsubmit=saveContainer;$('stageForm').onsubmit=saveStage;
+$('updateStageBtn').onclick=()=>{$('sAt').value=nowLocal();$('sNotes').value='';$('sStage').value=normalizeStage(selected.current_stage);closeModals();openModal('stageModal')};
+$('editBtn').onclick=()=>editRecord(selected);
+$('syncBtn').onclick=()=>toast('Synchronisation API non configurée : ajouter les identifiants du fournisseur dans la fonction sécurisée Supabase Edge Function.');
+$('searchInput').oninput=renderTable;$('filterStage').onchange=renderTable;$('dashboardSearch').oninput=renderDashboardTable;
+document.querySelectorAll('[data-page]').forEach(b=>b.onclick=()=>page(b.dataset.page));document.querySelectorAll('[data-goto]').forEach(b=>b.onclick=()=>page(b.dataset.goto));document.querySelectorAll('[data-close]').forEach(b=>b.onclick=closeModals);
+document.querySelectorAll('.modalback').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)closeModals()}));
+$('loginBtn').onclick=async()=>{const {data,error}=await sb.auth.signInWithPassword({email:$('loginEmail').value,password:$('loginPassword').value});$('loginMsg').textContent=error?.message||'';if(!error){user=data.user;showApp(false);await loadData()}};
+$('logoutBtn').onclick=async()=>{await sb.auth.signOut();showLogin()};
+init();
+</script>
+</body></html>
